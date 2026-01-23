@@ -6,6 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdminFlipFitService implements AdminFlipFitInterface {
+    @Override
+    public void registerCustomer(String userName, String password, String email, String phoneNumber, String cardNumber) {
+        // In a real app, this would call the DAO to save to the database.
+        // For now, we print to console.
+        System.out.println("-------------------------------------");
+        System.out.println("Registering Customer: " + userName);
+        System.out.println("Email: " + email);
+        System.out.println("Role: Customer");
+        System.out.println("Account created successfully!");
+        System.out.println("-------------------------------------");
+    }
 
     @Override
     public void approveGymCentre(String centreId, boolean isApproved) {

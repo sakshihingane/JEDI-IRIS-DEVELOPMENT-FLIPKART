@@ -8,6 +8,15 @@ import java.util.List;
 public class GymOwnerFlipFitService implements GymOwnerFlipFitInterface {
 
     @Override
+    public void registerGymOwner(String userName, String password, String email, String panNumber, String cardNumber) {
+        System.out.println("-------------------------------------");
+        System.out.println("Registering Gym Owner: " + userName);
+        System.out.println("PAN Number: " + panNumber);
+        System.out.println("Role: GymOwner");
+        System.out.println("Account sent for approval!");
+        System.out.println("-------------------------------------");
+    }
+    @Override
     public void addCentre(GymCentre gymCentre) {
         System.out.println("Gym Centre added successfully: " + gymCentre.getCentreName());
     }

@@ -5,6 +5,7 @@ import com.flipfit.bean.Slots;
 import java.util.List;
 
 public interface GymOwnerFlipFitInterface {
+    void registerGymOwner(String userName, String password, String email, String panNumber, String cardNumber);
     void addCentre(GymCentre gymCentre);
     List<GymCentre> viewMyCentres(String ownerId);
     void addSlot(Slots slot);
