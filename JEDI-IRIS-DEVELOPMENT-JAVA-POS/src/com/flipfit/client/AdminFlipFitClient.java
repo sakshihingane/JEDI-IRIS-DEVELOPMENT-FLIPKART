@@ -12,7 +12,7 @@ public class AdminFlipFitClient {
 
     public void adminMenu(Scanner scanner) {
         while (true) {
-            System.out.println("\n--- ADMIN MENU ---");
+            System.out.println("\n--- ADMIN DASHBOARD ---");
             System.out.println("1. View Pending Gym Owners");
             System.out.println("2. Approve Gym Owner");
             System.out.println("3. View Pending Gym Centres");
@@ -23,27 +23,51 @@ public class AdminFlipFitClient {
 
             switch (choice) {
                 case 1:
+                    System.out.println("\n--- PENDING OWNERS ---");
                     List<GymOwner> pendingOwners = adminService.getPendingOwners();
-                    // In a real app, you would loop and print these
-                    System.out.println("List of pending owners displayed here...");
+                    if (pendingOwners.isEmpty()) {
+                        System.out.println("No pending approvals.");
+                    } else {
+                        // Clean Display
+                        System.out.printf("%-15s %-25s%n", "USERNAME", "EMAIL");
+                        System.out.println("------------------------------------------");
+                        for (GymOwner o : pendingOwners) {
+                            System.out.printf("%-15s %-25s%n", o.getUserName(), o.getEmail());
+                        }
+                    }
                     break;
+
                 case 2:
-                    System.out.print("Enter Owner ID to approve: ");
-                    String ownerId = scanner.next();
-                    adminService.approveGymOwner(ownerId, true);
+                    System.out.print("\nEnter Gym Owner Username to Approve: ");
+                    String ownerName = scanner.next();
+                    adminService.approveGymOwner(ownerName, true);
                     break;
+
                 case 3:
+                    System.out.println("\n--- PENDING CENTRES ---");
                     List<GymCentre> pendingCentres = adminService.getPendingCentres();
-                    System.out.println("List of pending centres displayed here...");
+                    if (pendingCentres.isEmpty()) {
+                        System.out.println("No pending centres.");
+                    } else {
+                        // Clean Display
+                        System.out.printf("%-10s %-20s %-15s%n", "CENTRE ID", "NAME", "CITY");
+                        System.out.println("--------------------------------------------------");
+                        for (GymCentre c : pendingCentres) {
+                            System.out.printf("%-10s %-20s %-15s%n", c.getCentreId(), c.getCentreName(), c.getCity());
+                        }
+                    }
                     break;
+
                 case 4:
-                    System.out.print("Enter Centre ID to approve: ");
+                    System.out.print("\nEnter Centre ID to Approve: ");
                     String centreId = scanner.next();
                     adminService.approveGymCentre(centreId, true);
                     break;
+
                 case 5:
                     System.out.println("Logging out...");
-                    return; // Returns to Main Menu
+                    return;
+
                 default:
                     System.out.println("Invalid choice.");
             }

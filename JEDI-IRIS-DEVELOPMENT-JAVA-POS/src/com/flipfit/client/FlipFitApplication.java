@@ -30,7 +30,7 @@ public class FlipFitApplication {
                 case 1:
                     System.out.println("--- LOGIN ---");
                     System.out.print("Enter Username: ");
-                    String user = scanner.next(); 
+                    String user = scanner.next();  // <--- You capture the username here
                     System.out.print("Enter Password: ");
                     String pass = scanner.next();
                     System.out.print("Enter Role (Admin/Customer/GymOwner): ");
@@ -42,7 +42,8 @@ public class FlipFitApplication {
                         } else if (role.equalsIgnoreCase("Customer")) {
                             customerClient.customerMenu(scanner, user);
                         } else if (role.equalsIgnoreCase("GymOwner")) {
-                            ownerClient.gymOwnerMenu(scanner);
+                            ownerClient.gymOwnerMenu(scanner, user);
+                            // -------------------
                         } else {
                             System.out.println("Invalid Role Selected.");
                         }
