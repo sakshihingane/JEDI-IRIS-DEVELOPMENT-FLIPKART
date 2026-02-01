@@ -1,11 +1,21 @@
----
 logging:
   level: INFO
   loggers:
     com.flipfit: DEBUG
 
 database:
-  driverClass: org.h2.Driver
-  url: jdbc:h2:mem:flipfit;DB_CLOSE_DELAY=-1 # In-memory database, data wiped on restart
-  user: sa
-  password: sa
+  # 1. Use the MySQL Connector/J driver class
+  driverClass: com.mysql.cj.jdbc.Driver
+
+  # 2. Update the URL to point to your MySQL server
+  # Format: jdbc:mysql://[host]:[port]/[database_name]
+  url: jdbc:mysql://localhost:3306/flipfit?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+
+  # 3. Credentials for your MySQL instance
+  user: root
+  password:
+
+  # Optional: Recommended for Dropwizard/Hibernate to ensure the right SQL syntax
+  properties:
+    charSet: UTF-8
+    hibernate.dialect: org.hibernate.dialect.MySQL8Dialect

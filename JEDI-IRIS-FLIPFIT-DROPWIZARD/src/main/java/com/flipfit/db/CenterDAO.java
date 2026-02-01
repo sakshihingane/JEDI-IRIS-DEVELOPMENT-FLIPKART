@@ -21,11 +21,11 @@ import java.util.Optional;
 public interface CenterDAO {
 
     @SqlUpdate("CREATE TABLE IF NOT EXISTS centers (" +
-            "id VARCHAR PRIMARY KEY, " +
-            "name VARCHAR, " +
-            "address VARCHAR, " +
-            "gymOwnerId VARCHAR, " +
-            "approvalStatus VARCHAR)")
+            "id VARCHAR(50) PRIMARY KEY, " +
+            "name VARCHAR(50), " +
+            "address VARCHAR(50), " +
+            "gymOwnerId VARCHAR(50), " +
+            "approvalStatus VARCHAR(50) )")
     void createTable();
 
     @SqlUpdate("INSERT INTO centers (id, name, address, gymOwnerId, approvalStatus) " +

@@ -45,9 +45,9 @@ public class UserService {
         }
     }
 
-    public boolean loginUser(String email, String password) {
+    public Optional<User> loginUser(String email, String password) {
         Optional<User> user = userDAO.findByEmail(email);
-        return user.isPresent() && user.get().getPassword().equals(password);
+        return user;
     }
 
     public Optional<User> findUserById(String id) {

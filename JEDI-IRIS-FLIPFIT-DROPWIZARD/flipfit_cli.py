@@ -30,12 +30,13 @@ def login(email, password):
     }
     response = requests.post(url, json=data)
     if response.status_code == 200 and response.json():
+        print(response.json())
         print("Login successful!")
         user_info['email'] = email
         # In a real app, you'd get the user's role and ID here
         # For simplicity, we'll ask for it after login
-        user_info['id'] = input("Enter your user ID: ")
-        user_info['role'] = input("Enter your role (ADMIN, GYM_MEMBER, GYM_OWNER): ").upper()
+        user_info['id'] = response.json()['id']
+        user_info['role'] = response.json()['role'].upper()
         return True
     else:
         print("Login failed.")
@@ -224,19 +225,13 @@ def logged_in_menu():
         if role == "ADMIN":
             print("1. Approve Center")
             print("2. Reject Center")
-            print("3. Approve Gym Owner")
-            print("4. Reject Gym Owner")
-            print("5. Logout")
+            print("3. Logout")
             choice = input("Enter your choice: ")
             if choice == '1':
                 approve_center()
             elif choice == '2':
                 reject_center()
             elif choice == '3':
-                approve_gym_owner()
-            elif choice == '4':
-                reject_gym_owner()
-            elif choice == '5':
                 user_info.clear()
                 break
         elif role == "GYM_OWNER":

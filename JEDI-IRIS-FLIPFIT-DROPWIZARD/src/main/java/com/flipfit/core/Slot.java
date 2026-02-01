@@ -12,10 +12,11 @@ public class Slot {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private int capacity;
-    private List<String> bookedMemberIds; // List of GymMember IDs who booked this slot
+    private String bookedMemberIds;
+    private List<String> bookedMemberList; // List of GymMember IDs who booked this slot
 
     public Slot() {
-        this.bookedMemberIds = new ArrayList<>();
+        this.bookedMemberList = new ArrayList<>();
     }
 
     public Slot(String id, String centerId, LocalDateTime startTime, LocalDateTime endTime, int capacity) {
@@ -24,7 +25,7 @@ public class Slot {
         this.startTime = startTime;
         this.endTime = endTime;
         this.capacity = capacity;
-        this.bookedMemberIds = new ArrayList<>();
+        this.bookedMemberList = new ArrayList<>();
     }
 
     public String getId() {
@@ -35,9 +36,18 @@ public class Slot {
         this.id = id;
     }
 
+    public String getBookedMemberIds() {
+        return this.bookedMemberIds;
+    }
+
+    public void setBookedMemberIds(String id) {
+        this.bookedMemberIds = id;
+    }
+
     public String getCenterId() {
         return centerId;
     }
+
 
     public void setCenterId(String centerId) {
         this.centerId = centerId;
@@ -67,28 +77,31 @@ public class Slot {
         this.capacity = capacity;
     }
 
-    public List<String> getBookedMemberIds() {
-        return bookedMemberIds;
+    public List<String> getbookedMemberList() {
+        return bookedMemberList;
     }
 
-    public void setBookedMemberIds(List<String> bookedMemberIds) {
-        this.bookedMemberIds = bookedMemberIds;
+    public void setbookedMemberList(List<String> bookedMemberList) {
+        this.bookedMemberList = bookedMemberList;
     }
 
     public int getRemainingSeats() {
-        return capacity - bookedMemberIds.size();
+        return capacity - bookedMemberList.size();
     }
 
     public boolean addMember(String gymMemberId) {
-        if (bookedMemberIds.size() < capacity && !bookedMemberIds.contains(gymMemberId)) {
-            bookedMemberIds.add(gymMemberId);
+        if (bookedMemberList.size() < capacity && !bookedMemberList.contains(gymMemberId)) {
+            bookedMemberList.add(gymMemberId);
+            recalculateString();
             return true;
         }
         return false;
     }
 
     public boolean removeMember(String gymMemberId) {
-        return bookedMemberIds.remove(gymMemberId);
+        boolean temp = bookedMemberList.remove(gymMemberId);
+        recalculateString();
+        return temp;
     }
 
     @Override
@@ -101,11 +114,18 @@ public class Slot {
                 Objects.equals(centerId, slot.centerId) &&
                 Objects.equals(startTime, slot.startTime) &&
                 Objects.equals(endTime, slot.endTime) &&
-                Objects.equals(bookedMemberIds, slot.bookedMemberIds);
+                Objects.equals(bookedMemberList, slot.bookedMemberList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, centerId, startTime, endTime, capacity, bookedMemberIds);
+        return Objects.hash(id, centerId, startTime, endTime, capacity, bookedMemberList);
+    }
+    private void recalculateString(){
+        String recalc = "";
+        for(String curr: this.bookedMemberList){
+            recalc += curr + ",";
+        }
+        this.bookedMemberIds = recalc;
     }
 }

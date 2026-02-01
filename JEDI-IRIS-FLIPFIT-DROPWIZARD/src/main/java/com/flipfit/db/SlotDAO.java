@@ -21,8 +21,8 @@ import java.util.Optional;
 public interface SlotDAO {
 
     @SqlUpdate("CREATE TABLE IF NOT EXISTS slots (" +
-            "id VARCHAR PRIMARY KEY, " +
-            "centerId VARCHAR, " +
+            "id VARCHAR(50) PRIMARY KEY, " +
+            "centerId VARCHAR(50), " +
             "startTime TIMESTAMP, " +
             "endTime TIMESTAMP, " +
             "capacity INT, " +

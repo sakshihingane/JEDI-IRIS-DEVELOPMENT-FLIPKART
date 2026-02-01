@@ -21,28 +21,28 @@ import java.util.Optional;
 public interface WaitListDAO {
 
     @SqlUpdate("CREATE TABLE IF NOT EXISTS waitlists (" +
-            "id VARCHAR PRIMARY KEY, " +
-            "gymMemberId VARCHAR, " +
-            "slotId VARCHAR, " +
-            "rank INT, " +
-            "status VARCHAR)")
+            "id VARCHAR(50) PRIMARY KEY, " +
+            "gymMemberId VARCHAR(50), " +
+            "slotId VARCHAR(50), " +
+            "`rank` INT, " +
+            "status VARCHAR(50))")
     void createTable();
 
-    @SqlUpdate("INSERT INTO waitlists (id, gymMemberId, slotId, rank, status) " +
+    @SqlUpdate("INSERT INTO waitlists (id, gymMemberId, slotId, `rank`, status) " +
             "VALUES (:id, :gymMemberId, :slotId, :rank, :status)")
-    @GetGeneratedKeys("id")
-    String insert(@BindBean WaitList waitList);
 
-    @SqlQuery("SELECT id, gymMemberId, slotId, rank, status FROM waitlists WHERE id = :id")
+    void insert(@BindBean WaitList waitList);
+
+    @SqlQuery("SELECT id, gymMemberId, slotId, `rank`, status FROM waitlists WHERE id = :id")
     Optional<WaitList> findById(@Bind("id") String id);
 
-    @SqlQuery("SELECT id, gymMemberId, slotId, rank, status FROM waitlists WHERE slotId = :slotId ORDER BY rank ASC")
+    @SqlQuery("SELECT id, gymMemberId, slotId, `rank`, status FROM waitlists WHERE slotId = :slotId ORDER BY `rank` ASC")
     List<WaitList> findBySlotId(@Bind("slotId") String slotId);
 
-    @SqlQuery("SELECT id, gymMemberId, slotId, rank, status FROM waitlists WHERE gymMemberId = :gymMemberId")
+    @SqlQuery("SELECT id, gymMemberId, slotId, `rank`, status FROM waitlists WHERE gymMemberId = :gymMemberId")
     List<WaitList> findByGymMemberId(@Bind("gymMemberId") String gymMemberId);
 
-    @SqlQuery("SELECT id, gymMemberId, slotId, rank, status FROM waitlists")
+    @SqlQuery("SELECT id, gymMemberId, slotId, `rank`, status FROM waitlists")
     List<WaitList> findAll();
 
     @SqlUpdate("UPDATE waitlists SET gymMemberId = :gymMemberId, slotId = :slotId, rank = :rank, status = :status WHERE id = :id")

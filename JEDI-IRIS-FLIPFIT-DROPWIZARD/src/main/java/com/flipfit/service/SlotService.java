@@ -23,6 +23,7 @@ public class SlotService {
             return Optional.of(slot);
         } catch (Exception e) {
             // Log exception
+            System.out.println("got here" + e);
             return Optional.empty();
         }
     }

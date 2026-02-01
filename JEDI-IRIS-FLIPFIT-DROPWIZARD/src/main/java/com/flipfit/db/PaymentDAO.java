@@ -21,18 +21,18 @@ import java.util.Optional;
 public interface PaymentDAO {
 
     @SqlUpdate("CREATE TABLE IF NOT EXISTS payments (" +
-            "id VARCHAR PRIMARY KEY, " +
-            "gymMemberId VARCHAR, " +
-            "slotId VARCHAR, " +
+            "id VARCHAR(50) PRIMARY KEY, " +
+            "gymMemberId VARCHAR(50), " +
+            "slotId VARCHAR(50), " +
             "amount DOUBLE, " +
             "timestamp TIMESTAMP, " +
-            "transactionId VARCHAR)")
+            "transactionId VARCHAR(50))")
     void createTable();
 
     @SqlUpdate("INSERT INTO payments (id, gymMemberId, slotId, amount, timestamp, transactionId) " +
             "VALUES (:id, :gymMemberId, :slotId, :amount, :timestamp, :transactionId)")
-    @GetGeneratedKeys("id")
-    String insert(@BindBean Payment payment);
+    
+    void insert(@BindBean Payment payment);
 
     @SqlQuery("SELECT id, gymMemberId, slotId, amount, timestamp, transactionId FROM payments WHERE id = :id")
     Optional<Payment> findById(@Bind("id") String id);

@@ -21,9 +21,9 @@ import java.util.Optional;
 public interface BookingDAO {
 
     @SqlUpdate("CREATE TABLE IF NOT EXISTS bookings (" +
-            "id VARCHAR PRIMARY KEY, " +
-            "gymMemberId VARCHAR, " +
-            "slotId VARCHAR, " +
+            "id VARCHAR(50) PRIMARY KEY, " +
+            "gymMemberId VARCHAR(50)," +
+            "slotId VARCHAR(50), " +
             "bookingTime TIMESTAMP)")
     void createTable();
 

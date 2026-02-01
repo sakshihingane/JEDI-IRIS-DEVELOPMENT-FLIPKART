@@ -20,7 +20,7 @@ import java.util.Optional;
 @RegisterArgumentFactory(RoleArgumentFactory.class)
 public interface UserDAO {
 
-    @SqlUpdate("CREATE TABLE IF NOT EXISTS users (id VARCHAR PRIMARY KEY, name VARCHAR, email VARCHAR UNIQUE, password VARCHAR, role VARCHAR)")
+    @SqlUpdate("CREATE TABLE IF NOT EXISTS users (id VARCHAR(50) PRIMARY KEY, name VARCHAR(50), email VARCHAR(50) UNIQUE, password VARCHAR(50), role VARCHAR(50))")
     void createTable();
 
     @SqlUpdate("INSERT INTO users (id, name, email, password, role) VALUES (:id, :name, :email, :password, :role)")

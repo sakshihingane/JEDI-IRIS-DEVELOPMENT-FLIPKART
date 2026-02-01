@@ -68,9 +68,9 @@ public class UserResource {
             return Response.status(Response.Status.BAD_REQUEST).entity("Email and password are required.").build();
         }
 
-        boolean loginSuccess = userService.loginUser(request.email, request.password);
+        Optional<User> user_logged_in = userService.loginUser(request.email, request.password);
 
-        return Response.ok(loginSuccess).build();
+        return Response.ok(user_logged_in).build();
     }
 
 
